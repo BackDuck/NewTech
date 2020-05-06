@@ -10,5 +10,5 @@ import retrofit2.http.Query
 interface Requests {
 
     @GET("api/")
-    suspend fun getPhoto(@Query("key") key: String, @Query("q") query: String): Response<PhotoBody>
+    suspend fun getPhoto(@Query("key") key: String, @Query("q") query: String): PhotoBody
 }

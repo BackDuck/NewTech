@@ -1,16 +1,25 @@
 package com.example
 
 import android.app.Application
-import com.example.data.di.dataModule
-import com.example.domain.di.domainModule
-import org.kodein.di.Kodein
-import org.kodein.di.KodeinAware
-import org.kodein.di.android.x.androidXModule
+import com.example.di.*
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
 
-class App: Application(), KodeinAware {
-    override val kodein = Kodein.lazy {
-        import(androidXModule(this@App))
-        import(dataModule)
-        import(domainModule)
+class App: Application() {
+
+    override fun onCreate() {
+        super.onCreate()
+        startKoin{
+            androidLogger()
+            androidContext(this@App)
+            modules(
+                dataModule,
+                repositoryModule,
+                retrofitModule,
+                useCaseModule,
+                viewModelModule
+            )
+        }
     }
 }

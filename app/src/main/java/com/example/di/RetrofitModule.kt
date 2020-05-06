@@ -1,22 +1,19 @@
-package com.example.data.di
+package com.example.di
 
 import com.example.data.Requests
 import com.example.newtechnology.BuildConfig
 import com.google.gson.Gson
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.kodein.di.Kodein
-import org.kodein.di.generic.bind
-import org.kodein.di.generic.instance
-import org.kodein.di.generic.singleton
+import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-val retrofitModule = Kodein.Module("RetrofitModule") {
+val retrofitModule = module {
 
     val BASE_URL = "https://pixabay.com/"
 
-    bind<OkHttpClient>() with singleton {
+    single<OkHttpClient>{
         val builder = OkHttpClient.Builder()
         if (BuildConfig.DEBUG) {
             builder.addInterceptor(HttpLoggingInterceptor().apply {
@@ -26,14 +23,14 @@ val retrofitModule = Kodein.Module("RetrofitModule") {
         builder.build()
     }
 
-    bind<Gson>() with singleton {
+    single<Gson>{
         Gson()
     }
 
-    bind<Requests>() with singleton {
+    single<Requests>{
         Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create(instance()))
-            .client(instance())
+            .addConverterFactory(GsonConverterFactory.create(get()))
+            .client(get())
             .baseUrl(BASE_URL)
             .build()
             .create(Requests::class.java)
