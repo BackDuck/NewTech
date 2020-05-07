@@ -18,7 +18,8 @@ class App: Application() {
                 repositoryModule,
                 retrofitModule,
                 useCaseModule,
-                viewModelModule
+                viewModelModule,
+                adapterModule
             )
         }
     }

@@ -1,7 +1,6 @@
 package com.example.presentation.ui.main
 
 import androidx.lifecycle.*
-import com.example.domain.entity.PhotoEntity
 import com.example.domain.usecase.GetPhotosUseCase
 import com.example.presentation.ui.base.BaseViewModel
 import com.example.utils.Error
